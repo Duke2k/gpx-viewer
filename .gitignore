@@ -1,0 +1,13 @@
+target/
+.idea/
+*.iml
+.classpath
+.factorypath
+.project
+.settings
+node_modules/
+webpack.generated.js
+webpack.config.js
+package-lock.json
+package.json
+/src/main/java/de/duke2k/gpxviewer/xjc/

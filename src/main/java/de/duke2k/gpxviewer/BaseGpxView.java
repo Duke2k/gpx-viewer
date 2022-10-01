@@ -1,0 +1,37 @@
+package de.duke2k.gpxviewer;
+
+import com.vaadin.flow.component.ItemLabelGenerator;
+import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.Route;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.io.File;
+import java.util.List;
+
+@Route("gpx")
+public class BaseGpxView extends VerticalLayout {
+
+  @Autowired
+  public BaseGpxView(List<File> availableGpxFiles, GpxReader gpxReader) {
+    HorizontalLayout gpxSelector = new HorizontalLayout();
+    Label availableRoutesLabel = new Label("Verfügbare Routen:");
+    availableRoutesLabel.setWidth("300px");
+    Label distanceAndElevationLabel = new Label("0 km, 0 Hm");
+    distanceAndElevationLabel.setWidth("600px");
+    GpxView gpxView = new GpxView(gpxReader, distanceAndElevationLabel);
+    gpxView.setId("map");
+    gpxView.setSizeFull();
+    ComboBox<File> availableGpxFilesComboBox = new ComboBox<>();
+    availableGpxFilesComboBox.setItems(availableGpxFiles);
+    availableGpxFilesComboBox.setItemLabelGenerator((ItemLabelGenerator<File>) File::getName);
+    availableGpxFilesComboBox.addValueChangeListener(event -> gpxView.loadGpxRoute(event.getValue()));
+    availableGpxFilesComboBox.setWidthFull();
+    gpxSelector.add(availableRoutesLabel, availableGpxFilesComboBox, distanceAndElevationLabel);
+    gpxSelector.setWidthFull();
+    add(gpxSelector, gpxView);
+    setSizeFull();
+  }
+}

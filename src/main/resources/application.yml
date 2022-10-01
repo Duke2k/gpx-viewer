@@ -1,0 +1,28 @@
+server:
+  port: 8090
+  http2:
+    enabled: true
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    min-response-size: 1024
+  servlet:
+    session:
+      persistent: false
+spring:
+  application:
+    name: gpx-viewer
+  profiles:
+    active: user-${USERNAME}
+  resources:
+    cache:
+      cachecontrol:
+        max-age: 120
+        must-revalidate: true
+  main:
+    lazy-initialization: true
+    allow-bean-definition-overriding: true
+vaadin:
+  compatibilityMode: false
+  pnpm:
+    enable: true
