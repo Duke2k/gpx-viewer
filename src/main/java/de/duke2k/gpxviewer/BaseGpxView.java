@@ -1,8 +1,10 @@
 package de.duke2k.gpxviewer;
 
 import com.vaadin.flow.component.ItemLabelGenerator;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
@@ -27,9 +29,17 @@ public class BaseGpxView extends VerticalLayout {
     ComboBox<File> availableGpxFilesComboBox = new ComboBox<>();
     availableGpxFilesComboBox.setItems(availableGpxFiles);
     availableGpxFilesComboBox.setItemLabelGenerator((ItemLabelGenerator<File>) File::getName);
-    availableGpxFilesComboBox.addValueChangeListener(event -> gpxView.loadGpxRoute(event.getValue()));
+    Button elevationProfileButton = new Button("Höhenprofil");
+    elevationProfileButton.setEnabled(false);
+    elevationProfileButton.setIcon(VaadinIcon.CHART_LINE.create());
+    elevationProfileButton.addClickListener(event -> gpxView.showElevationProfile());
+    availableGpxFilesComboBox.addValueChangeListener(event -> {
+      gpxView.loadGpxRoute(event.getValue());
+      elevationProfileButton.setEnabled(true);
+
+    });
     availableGpxFilesComboBox.setWidthFull();
-    gpxSelector.add(availableRoutesLabel, availableGpxFilesComboBox, distanceAndElevationLabel);
+    gpxSelector.add(availableRoutesLabel, availableGpxFilesComboBox, distanceAndElevationLabel, elevationProfileButton);
     gpxSelector.setWidthFull();
     add(gpxSelector, gpxView);
     setSizeFull();

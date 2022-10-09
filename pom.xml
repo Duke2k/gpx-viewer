@@ -41,6 +41,7 @@
     <jaxb-runtime.version>4.0.1</jaxb-runtime.version>
     <jakarta.xml.bind-api.version>4.0.0</jakarta.xml.bind-api.version>
     <jakarta.activation-api.version>2.1.0</jakarta.activation-api.version>
+    <jfreechart.version>1.0.19</jfreechart.version>
   </properties>
 
   <dependencyManagement>
@@ -183,6 +184,11 @@
       <groupId>jakarta.activation</groupId>
       <artifactId>jakarta.activation-api</artifactId>
       <version>${jakarta.activation-api.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jfree</groupId>
+      <artifactId>jfreechart</artifactId>
+      <version>${jfreechart.version}</version>
     </dependency>
     <dependency>
       <groupId>org.glassfish.jaxb</groupId>

@@ -6,6 +6,9 @@ import XYZ from 'ol/source/XYZ';
 import {Circle as CircleStyle, Fill, Stroke, Style} from 'ol/style';
 import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
 
+var layers = [new TileLayer({source: new OSM()})];
+var view = new View({center: [0, 0], zoom: 0});
+
 window.Vaadin.Flow.openLayersConnector = {
     initLazy: function (c) {
         if (c.$connector) {
@@ -13,18 +16,7 @@ window.Vaadin.Flow.openLayersConnector = {
         }
         c.$connector = {
         };
-        c.$connector.map = new Map({
-            target: c,
-            layers: [
-                new TileLayer({
-                    source: new OSM()
-                })
-            ],
-            view: new View({
-                center: [0, 0],
-                zoom: 0
-            })
-        });
+        c.$connector.map = new Map({target: c, layers, view});
     },
     centerAndScale: function (c, lat, lon, scale) {
         if (c.$connector) {
@@ -32,17 +24,6 @@ window.Vaadin.Flow.openLayersConnector = {
         }
         c.$connector = {
         };
-        c.$connector.map = new Map({
-            target: c,
-            layers: [
-                new TileLayer({
-                    source: new OSM()
-                })
-            ],
-            view: new View({
-                center: [lat, lon],
-                zoom: scale
-            })
-        });
+        c.$connector.map = new Map({target: c, layers, view});
     }
 }

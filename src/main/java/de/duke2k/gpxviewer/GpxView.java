@@ -12,6 +12,9 @@ import de.duke2k.gpxviewer.xjc.WptType;
 import jakarta.xml.bind.JAXBException;
 import lombok.extern.java.Log;
 import org.apache.commons.lang3.tuple.Pair;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.Plot;
+import org.jfree.chart.plot.XYPlot;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -37,6 +40,7 @@ public class GpxView extends Div {
 
   private final GpxReader gpxReader;
   private final Label distanceAndElevationLabel;
+  private List<WptType> waypoints;
 
   public GpxView(GpxReader gpxReader, Label distanceAndElevationLabel) {
     this.gpxReader = gpxReader;
@@ -47,7 +51,7 @@ public class GpxView extends Div {
   public void loadGpxRoute(@Nonnull File gpxFile) {
     try {
       GpxType gpx = gpxReader.readFromFile(gpxFile).getValue();
-      List<WptType> waypoints = extractWaypoints(gpx);
+      extractWaypoints(gpx);
       double distance = 0.0;
       double elevation = 0.0;
       WptType previousWpt = null;
@@ -70,6 +74,13 @@ public class GpxView extends Div {
     }
   }
 
+  public void showElevationProfile() {
+    if (waypoints != null && !waypoints.isEmpty()) {
+      Plot elevationPlot = new XYPlot();
+      JFreeChart chart = new JFreeChart("Höhenprofil", elevationPlot);
+    }
+  }
+
   private void initConnector() {
     runBeforeClientResponse(ui -> ui.getPage().executeJs(
         "window.Vaadin.Flow.openLayersConnector.initLazy($0)",
@@ -87,13 +98,11 @@ public class GpxView extends Div {
         .beforeClientResponse(this, context -> command.accept(ui)));
   }
 
-  @Nonnull
-  private List<WptType> extractWaypoints(@Nonnull GpxType gpx) {
-    List<WptType> waypoints = new ArrayList<>();
+  private void extractWaypoints(@Nonnull GpxType gpx) {
+    waypoints = new ArrayList<>();
     gpx.getTrk()
         .forEach(trk -> trk.getTrkseg()
             .forEach(trkseg -> waypoints.addAll(trkseg.getTrkpt())));
-    return waypoints;
   }
 
   @Nonnegative
