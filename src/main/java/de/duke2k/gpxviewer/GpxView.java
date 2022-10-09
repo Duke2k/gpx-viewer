@@ -4,6 +4,7 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.dependency.NpmPackage;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.function.SerializableConsumer;
@@ -12,9 +13,6 @@ import de.duke2k.gpxviewer.xjc.WptType;
 import jakarta.xml.bind.JAXBException;
 import lombok.extern.java.Log;
 import org.apache.commons.lang3.tuple.Pair;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.Plot;
-import org.jfree.chart.plot.XYPlot;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -26,6 +24,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.OptionalDouble;
 
+import static de.duke2k.gpxviewer.VaadinConstants.OVERLAY_ASPECT_RATIO;
+import static de.duke2k.gpxviewer.VaadinConstants.OVERLAY_WIDTH;
+import static de.duke2k.gpxviewer.VaadinConstants.OVERLAY_WIDTH_PX;
 import static java.lang.Math.PI;
 import static java.lang.Math.atan2;
 import static java.lang.Math.cos;
@@ -76,8 +77,7 @@ public class GpxView extends Div {
 
   public void showElevationProfile() {
     if (waypoints != null && !waypoints.isEmpty()) {
-      Plot elevationPlot = new XYPlot();
-      JFreeChart chart = new JFreeChart("Höhenprofil", elevationPlot);
+      createElevationProfileOverlay();
     }
   }
 
@@ -96,6 +96,20 @@ public class GpxView extends Div {
   private void runBeforeClientResponse(SerializableConsumer<UI> command) {
     getElement().getNode().runWhenAttached(ui -> ui
         .beforeClientResponse(this, context -> command.accept(ui)));
+  }
+
+  @SuppressWarnings("UnusedReturnValue")
+  @Nonnull
+  private Dialog createElevationProfileOverlay() {
+    ElevationProfileOverlay elevationProfileOverlay = new ElevationProfileOverlay(waypoints);
+    Dialog dialog = new Dialog();
+    dialog.setWidth(OVERLAY_WIDTH_PX);
+    dialog.setHeight((OVERLAY_WIDTH * OVERLAY_ASPECT_RATIO) + "px");
+    dialog.add(elevationProfileOverlay);
+    dialog.setCloseOnOutsideClick(true);
+    dialog.setCloseOnEsc(true);
+    dialog.setOpened(true);
+    return dialog;
   }
 
   private void extractWaypoints(@Nonnull GpxType gpx) {
