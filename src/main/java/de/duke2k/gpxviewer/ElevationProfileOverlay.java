@@ -11,6 +11,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import javax.annotation.Nonnull;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -25,20 +26,15 @@ import static de.duke2k.gpxviewer.util.GpxUtils.getDistance;
 @Log
 public class ElevationProfileOverlay extends Div {
 
-  private final List<WptType> waypoints;
-  private final Comparable<?> key;
-
-  public ElevationProfileOverlay(List<WptType> waypoints) {
-    this.waypoints = waypoints;
-    key = "Segment";
-    createElevationProfileChart();
+  public ElevationProfileOverlay(@Nonnull List<WptType> wpts, @Nonnull Comparable<?> key) {
+    createElevationProfileChart(wpts, key);
     setSizeFull();
     setId("elevationProfile");
   }
 
-  private void createElevationProfileChart() {
+  private void createElevationProfileChart(@Nonnull List<WptType> wpts, @Nonnull Comparable<?> key) {
     XYSeriesCollection dataset = new XYSeriesCollection();
-    dataset.addSeries(createXYSeries());
+    dataset.addSeries(createXYSeries(wpts, key));
     JFreeChart chart = ChartFactory.createXYLineChart(
         "Höhenprofil",
         "Entfernung (km)",
@@ -64,11 +60,11 @@ public class ElevationProfileOverlay extends Div {
     chartImage.setSizeFull();
   }
 
-  private XYSeries createXYSeries() {
+  private XYSeries createXYSeries(@Nonnull List<WptType> wpts, @Nonnull Comparable<?> key) {
     XYSeries result = new XYSeries(key);
     double distance = 0.0;
     WptType previousWpt = null;
-    for (WptType wpt : waypoints) {
+    for (WptType wpt : wpts) {
       if (previousWpt != null) {
         distance += getDistance(previousWpt.getLat().doubleValue(), previousWpt.getLon().doubleValue(),
             wpt.getLat().doubleValue(), wpt.getLon().doubleValue());

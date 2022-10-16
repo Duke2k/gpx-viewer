@@ -32,11 +32,10 @@ public class BaseGpxView extends VerticalLayout {
     Button elevationProfileButton = new Button("Höhenprofil");
     elevationProfileButton.setEnabled(false);
     elevationProfileButton.setIcon(VaadinIcon.CHART_LINE.create());
-    elevationProfileButton.addClickListener(event -> gpxView.showElevationProfile());
+    elevationProfileButton.addClickListener(event -> gpxView.showElevationProfile("Segment"));
     availableGpxFilesComboBox.addValueChangeListener(event -> {
       gpxView.loadGpxRoute(event.getValue());
       elevationProfileButton.setEnabled(true);
-
     });
     availableGpxFilesComboBox.setWidthFull();
     gpxSelector.add(availableRoutesLabel, availableGpxFilesComboBox, distanceAndElevationLabel, elevationProfileButton);

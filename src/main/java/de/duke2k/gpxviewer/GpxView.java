@@ -64,15 +64,15 @@ public class GpxView extends Div {
       }
       distanceAndElevationLabel.setText(BigDecimal.valueOf(distance / 1000.0) + " km, " +
           BigDecimal.valueOf(elevation) + " Hm");
-      centerAndScale(findCentre(waypoints), findIdealZoomFactor(waypoints));
+      centerAndScaleOnMap(findCentre(waypoints), findIdealZoomFactor(waypoints));
     } catch (IOException | JAXBException e) {
       log.severe(e.getMessage());
     }
   }
 
-  public void showElevationProfile() {
+  public void showElevationProfile(@Nonnull Comparable<?> key) {
     if (waypoints != null && !waypoints.isEmpty()) {
-      createElevationProfileOverlay();
+      createElevationProfileOverlay(key);
     }
   }
 
@@ -82,7 +82,7 @@ public class GpxView extends Div {
         getElement()));
   }
 
-  private void centerAndScale(Pair<BigDecimal, BigDecimal> coordinates, BigDecimal zoom) {
+  private void centerAndScaleOnMap(Pair<BigDecimal, BigDecimal> coordinates, BigDecimal zoom) {
     UI.getCurrent().getPage().executeJs(
         "window.Vaadin.Flow.openLayersConnector.centerAndScale($0, $1, $2, $3)",
         getElement(), coordinates.getLeft().doubleValue(), coordinates.getRight().doubleValue(), zoom.doubleValue());
@@ -95,8 +95,8 @@ public class GpxView extends Div {
 
   @SuppressWarnings("UnusedReturnValue")
   @Nonnull
-  private Dialog createElevationProfileOverlay() {
-    ElevationProfileOverlay elevationProfileOverlay = new ElevationProfileOverlay(waypoints);
+  private Dialog createElevationProfileOverlay(@Nonnull Comparable<?> key) {
+    ElevationProfileOverlay elevationProfileOverlay = new ElevationProfileOverlay(waypoints, key);
     Dialog dialog = new Dialog();
     dialog.setWidth(OVERLAY_WIDTH_PX);
     dialog.setHeight((OVERLAY_WIDTH * OVERLAY_ASPECT_RATIO) + "px");
@@ -113,5 +113,4 @@ public class GpxView extends Div {
         .forEach(trk -> trk.getTrkseg()
             .forEach(trkseg -> waypoints.addAll(trkseg.getTrkpt())));
   }
-
 }
