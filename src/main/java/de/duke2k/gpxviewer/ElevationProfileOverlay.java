@@ -35,16 +35,8 @@ public class ElevationProfileOverlay extends Div {
   private void createElevationProfileChart(@Nonnull List<WptType> wpts, @Nonnull Comparable<?> key) {
     XYSeriesCollection dataset = new XYSeriesCollection();
     dataset.addSeries(createXYSeries(wpts, key));
-    JFreeChart chart = ChartFactory.createXYLineChart(
-        "Höhenprofil",
-        "Entfernung (km)",
-        "Höhe (m)",
-        dataset,
-        PlotOrientation.HORIZONTAL,
-        true,
-        true,
-        false
-    );
+    JFreeChart chart = ChartFactory.createXYLineChart("Höhenprofil", "Entfernung (km)",
+        "Höhe (m)", dataset);
     BufferedImage bufferedImage = chart.createBufferedImage(OVERLAY_WIDTH, Math.round(OVERLAY_WIDTH * OVERLAY_ASPECT_RATIO));
     StreamResource streamResource = new StreamResource("elevationProfileResource", () -> {
       try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {

@@ -11,7 +11,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.7.4</version>
+    <version>2.7.9</version>
   </parent>
 
   <properties>
@@ -19,17 +19,17 @@
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <vaadin.version>14.8.18</vaadin.version>
+    <vaadin.version>14.9.7</vaadin.version>
     <drivers.downloader.phase>pre-integration-test</drivers.downloader.phase>
-    <frontend.maven.plugin.version>1.12.0</frontend.maven.plugin.version>
+    <frontend.maven.plugin.version>1.12.1</frontend.maven.plugin.version>
     <json.version>20210307</json.version>
     <vaadin-security.version>1.0.0</vaadin-security.version>
     <timestamp>${maven.build.timestamp}</timestamp>
     <maven.build.timestamp.format>dd.MM.yyyy HH:mm:ss</maven.build.timestamp.format>
-    <spring-boot.version>2.7.4</spring-boot.version>
-    <spring.version>5.3.23</spring.version>
+    <spring-boot.version>2.7.9</spring-boot.version>
+    <spring.version>5.3.26</spring.version>
     <jsr305.version>3.0.2</jsr305.version>
-    <jetty.version>9.4.48.v20220622</jetty.version>
+    <jetty.version>9.4.51.v20230217</jetty.version>
     <springfox-swagger.version>3.0.0</springfox-swagger.version>
     <commons-io.version>2.11.0</commons-io.version>
     <commons-collections4.version>4.4</commons-collections4.version>
@@ -37,8 +37,8 @@
     <dependency-check-maven.version>6.2.2</dependency-check-maven.version>
     <jetty-maven-plugin.version>${jetty.version}</jetty-maven-plugin.version>
     <lombok.version>1.18.24</lombok.version>
-    <springdoc-openapi.version>1.6.9</springdoc-openapi.version>
-    <jaxb-runtime.version>4.0.1</jaxb-runtime.version>
+    <springdoc-openapi.version>1.6.15</springdoc-openapi.version>
+    <jaxb-runtime.version>4.0.2</jaxb-runtime.version>
     <jakarta.xml.bind-api.version>4.0.0</jakarta.xml.bind-api.version>
     <jakarta.activation-api.version>2.1.0</jakarta.activation-api.version>
     <jfreechart.version>1.0.19</jfreechart.version>
