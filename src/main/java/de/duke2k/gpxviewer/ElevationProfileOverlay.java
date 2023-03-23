@@ -7,7 +7,6 @@ import de.duke2k.gpxviewer.xjc.WptType;
 import lombok.extern.java.Log;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 

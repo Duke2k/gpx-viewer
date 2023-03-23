@@ -9,7 +9,6 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 public class MainApplication extends SpringBootServletInitializer {
 
   public static void main(String[] args) {
-    //noinspection resource
     SpringApplication.run(MainApplication.class, args);
   }
 
