@@ -29,7 +29,9 @@
     <spring-boot.version>3.1.4</spring-boot.version>
     <spring.version>6.0.12</spring.version>
     <jsr305.version>3.0.2</jsr305.version>
+    <javax-websocket-server-impl.version>9.4.52.v20230823</javax-websocket-server-impl.version>
     <jetty.version>11.0.16</jetty.version>
+    <jetty-continuation.version>9.4.52.v20230823</jetty-continuation.version>
     <springfox-swagger.version>3.0.0</springfox-swagger.version>
     <commons-io.version>2.11.0</commons-io.version>
     <commons-collections4.version>4.4</commons-collections4.version>
@@ -41,7 +43,9 @@
     <jaxb-runtime.version>4.0.2</jaxb-runtime.version>
     <jakarta.xml.bind-api.version>4.0.0</jakarta.xml.bind-api.version>
     <jakarta.activation-api.version>2.1.0</jakarta.activation-api.version>
+    <jakarta.servlet-api.version>5.0.0</jakarta.servlet-api.version>
     <jfreechart.version>1.0.19</jfreechart.version>
+    <websocket-server.version>9.4.52.v20230823</websocket-server.version>
   </properties>
 
   <dependencyManagement>
@@ -90,6 +94,7 @@
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-continuation</artifactId>
+      <version>${jetty-continuation.version}</version>
     </dependency>
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
@@ -100,16 +105,19 @@
       <artifactId>jetty-webapp</artifactId>
     </dependency>
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <version>${jakarta.servlet-api.version}</version>
     </dependency>
     <dependency>
       <groupId>org.eclipse.jetty.websocket</groupId>
       <artifactId>websocket-server</artifactId>
+      <version>${websocket-server.version}</version>
     </dependency>
     <dependency>
       <groupId>org.eclipse.jetty.websocket</groupId>
       <artifactId>javax-websocket-server-impl</artifactId>
+      <version>${javax-websocket-server-impl.version}</version>
       <exclusions>
         <exclusion>
           <groupId>javax.websocket</groupId>
