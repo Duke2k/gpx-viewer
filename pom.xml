@@ -41,7 +41,9 @@
     <jaxb-runtime.version>4.0.2</jaxb-runtime.version>
     <jakarta.xml.bind-api.version>4.0.0</jakarta.xml.bind-api.version>
     <jakarta.activation-api.version>2.1.0</jakarta.activation-api.version>
+    <jakarta.servlet-api.version>5.0.0</jakarta.servlet-api.version>
     <jfreechart.version>1.0.19</jfreechart.version>
+    <websocket-server.version>9.4.52.v20230823</websocket-server.version>
   </properties>
 
   <dependencyManagement>
