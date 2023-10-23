@@ -6,12 +6,12 @@
 
   <groupId>de.duke2k.gpxviewer</groupId>
   <artifactId>gpx-viewer</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.1-SNAPSHOT</version>
 
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.7.9</version>
+    <version>3.1.4</version>
   </parent>
 
   <properties>
@@ -19,25 +19,25 @@
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <vaadin.version>14.9.7</vaadin.version>
+    <vaadin.version>24.2.0</vaadin.version>
     <drivers.downloader.phase>pre-integration-test</drivers.downloader.phase>
     <frontend.maven.plugin.version>1.12.1</frontend.maven.plugin.version>
-    <json.version>20210307</json.version>
+    <json.version>20231013</json.version>
     <vaadin-security.version>1.0.0</vaadin-security.version>
     <timestamp>${maven.build.timestamp}</timestamp>
     <maven.build.timestamp.format>dd.MM.yyyy HH:mm:ss</maven.build.timestamp.format>
-    <spring-boot.version>2.7.9</spring-boot.version>
-    <spring.version>5.3.26</spring.version>
+    <spring-boot.version>3.1.4</spring-boot.version>
+    <spring.version>6.0.12</spring.version>
     <jsr305.version>3.0.2</jsr305.version>
-    <jetty.version>9.4.51.v20230217</jetty.version>
+    <jetty.version>11.0.17</jetty.version>
     <springfox-swagger.version>3.0.0</springfox-swagger.version>
     <commons-io.version>2.11.0</commons-io.version>
     <commons-collections4.version>4.4</commons-collections4.version>
     <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
     <dependency-check-maven.version>6.2.2</dependency-check-maven.version>
     <jetty-maven-plugin.version>${jetty.version}</jetty-maven-plugin.version>
-    <lombok.version>1.18.24</lombok.version>
-    <springdoc-openapi.version>1.6.15</springdoc-openapi.version>
+    <lombok.version>1.18.28</lombok.version>
+    <springdoc-openapi.version>1.7.0</springdoc-openapi.version>
     <jaxb-runtime.version>4.0.2</jaxb-runtime.version>
     <jakarta.xml.bind-api.version>4.0.0</jakarta.xml.bind-api.version>
     <jakarta.activation-api.version>2.1.0</jakarta.activation-api.version>
@@ -69,6 +69,10 @@
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-starter-log4j2</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-autoconfigure</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
@@ -89,33 +93,11 @@
     </dependency>
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
-      <artifactId>jetty-continuation</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-server</artifactId>
     </dependency>
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-webapp</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.jetty.websocket</groupId>
-      <artifactId>websocket-server</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.jetty.websocket</groupId>
-      <artifactId>javax-websocket-server-impl</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>javax.websocket</groupId>
-          <artifactId>javax.websocket-client-api</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.vaadin</groupId>
@@ -140,13 +122,15 @@
       <artifactId>vaadin-notification-flow</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.vaadin</groupId>
-      <artifactId>flow-server-compatibility-mode</artifactId>
-    </dependency>
-    <dependency>
       <groupId>com.github.eirslett</groupId>
       <artifactId>frontend-maven-plugin</artifactId>
       <version>${frontend.maven.plugin.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.codehaus.plexus</groupId>
+          <artifactId>plexus-utils</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -165,6 +149,12 @@
       <groupId>org.springdoc</groupId>
       <artifactId>springdoc-openapi-ui</artifactId>
       <version>${springdoc-openapi.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.yaml</groupId>
+          <artifactId>snakeyaml</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.google.code.findbugs</groupId>
@@ -253,10 +243,6 @@
         <groupId>com.vaadin</groupId>
         <artifactId>vaadin-maven-plugin</artifactId>
         <version>${vaadin.version}</version>
-        <configuration>
-          <autodetectTools>true</autodetectTools>
-          <ignoreMavenProxies>false</ignoreMavenProxies>
-        </configuration>
         <executions>
           <execution>
             <goals>

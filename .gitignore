@@ -6,11 +6,4 @@ target/
 .factorypath
 .project
 .settings
-node_modules/
-webpack.generated.js
-webpack.config.js
-package-lock.json
-package.json
-pnpmfile.js
-pnpm-lock.yaml
 /src/main/java/de/duke2k/gpxviewer/xjc/
