@@ -10,10 +10,10 @@ import '@vaadin/icon/theme/lumo/vaadin-icon.js';
 import '@vaadin/horizontal-layout/theme/lumo/vaadin-horizontal-layout.js';
 import '@vaadin/button/theme/lumo/vaadin-button.js';
 import 'Frontend/generated/jar-resources/buttonFunctions.js';
-import 'Frontend/src/openlayers-connector.js';
+import 'Frontend/src/ol.js';
 import { injectGlobalCss } from 'Frontend/generated/jar-resources/theme-util.js';
 
 import { css, unsafeCSS, registerStyles } from '@vaadin/vaadin-themable-mixin';
-import $cssFromFile_0 from 'ol/ol.css?inline';
+import $cssFromFile_0 from 'Frontend/ol/ol.css?inline';
 
 injectGlobalCss($cssFromFile_0.toString(), 'CSSImport end', document);

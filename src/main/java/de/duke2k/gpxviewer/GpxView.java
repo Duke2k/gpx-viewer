@@ -6,7 +6,7 @@ import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.html.NativeLabel;
 import com.vaadin.flow.function.SerializableConsumer;
 import de.duke2k.gpxviewer.xjc.GpxType;
 import de.duke2k.gpxviewer.xjc.WptType;
@@ -29,16 +29,16 @@ import static de.duke2k.gpxviewer.util.GpxUtils.findIdealZoomFactor;
 import static de.duke2k.gpxviewer.util.GpxUtils.getDistance;
 
 @Log
-@NpmPackage(value = "ol", version = "7.1.0")
-@CssImport("ol/ol.css")
-@JsModule("./src/openlayers-connector.js")
+@NpmPackage(value = "ol", version = "8.1.0")
+@CssImport("./ol/ol.css")
+@JsModule("./src/ol.js")
 public class GpxView extends Div {
 
   private final GpxReader gpxReader;
-  private final Label distanceAndElevationLabel;
+  private final NativeLabel distanceAndElevationLabel;
   private List<WptType> waypoints;
 
-  public GpxView(GpxReader gpxReader, Label distanceAndElevationLabel) {
+  public GpxView(GpxReader gpxReader, NativeLabel distanceAndElevationLabel) {
     this.gpxReader = gpxReader;
     this.distanceAndElevationLabel = distanceAndElevationLabel;
     initConnector();

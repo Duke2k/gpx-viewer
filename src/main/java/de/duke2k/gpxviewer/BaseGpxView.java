@@ -3,7 +3,7 @@ package de.duke2k.gpxviewer;
 import com.vaadin.flow.component.ItemLabelGenerator;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
-import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.html.NativeLabel;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -19,9 +19,9 @@ public class BaseGpxView extends VerticalLayout {
   @Autowired
   public BaseGpxView(List<File> availableGpxFiles, GpxReader gpxReader) {
     HorizontalLayout gpxSelector = new HorizontalLayout();
-    Label availableRoutesLabel = new Label("Verfügbare Routen:");
+    NativeLabel availableRoutesLabel = new NativeLabel("Verfügbare Routen:");
     availableRoutesLabel.setWidth("300px");
-    Label distanceAndElevationLabel = new Label("0 km, 0 Hm");
+    NativeLabel distanceAndElevationLabel = new NativeLabel("0 km, 0 Hm");
     distanceAndElevationLabel.setWidth("600px");
     GpxView gpxView = new GpxView(gpxReader, distanceAndElevationLabel);
     gpxView.setId("map");
