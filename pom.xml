@@ -11,7 +11,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.2.0</version>
+    <version>3.1.4</version>
   </parent>
 
   <properties>
@@ -26,10 +26,10 @@
     <vaadin-security.version>1.0.0</vaadin-security.version>
     <timestamp>${maven.build.timestamp}</timestamp>
     <maven.build.timestamp.format>dd.MM.yyyy HH:mm:ss</maven.build.timestamp.format>
-    <spring-boot.version>3.2.0</spring-boot.version>
-    <spring.version>6.1.1</spring.version>
+    <spring-boot.version>3.1.4</spring-boot.version>
+    <spring.version>6.0.12</spring.version>
     <jsr305.version>3.0.2</jsr305.version>
-    <jetty.version>11.0.18</jetty.version>
+    <jetty.version>11.0.17</jetty.version>
     <http2-server.version>${jetty.version}</http2-server.version>
     <springfox-swagger.version>3.0.0</springfox-swagger.version>
     <commons-io.version>2.11.0</commons-io.version>

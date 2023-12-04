@@ -3,13 +3,6 @@
      xsi:schemaLocation="http://www.topografix.com/GPX/1/1 ../xsd/gpx.xsd"
      xmlns="http://www.topografix.com/GPX/1/1"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <metadata>
-    <name>Cyclotour du Léman 2023 / Lausanne - Lausanne (Place de la Navigation) 176 km</name>
-    <link href="connect.garmin.com">
-      <text>Garmin Connect</text>
-    </link>
-    <time>2022-05-22T06:30:00.000Z</time>
-  </metadata>
   <trk>
     <name>Cyclotour du Léman 2023 / Lausanne - Lausanne (Place de la Navigation) 176 km</name>
     <desc>
