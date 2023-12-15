@@ -12,3 +12,4 @@ package.json
 package-lock.json
 tsconfig.json
 types.d.ts
+.fake
