@@ -9,6 +9,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.io.File;
 import java.util.List;
@@ -17,14 +18,11 @@ import java.util.List;
 public class BaseGpxView extends VerticalLayout {
 
   @Autowired
-  public BaseGpxView(List<File> availableGpxFiles, GpxReader gpxReader) {
+  public BaseGpxView(List<File> availableGpxFiles, GpxView gpxView,
+                     @Qualifier("distanceAndElevationLabel") NativeLabel distanceAndElevationLabel) {
     HorizontalLayout gpxSelector = new HorizontalLayout();
     NativeLabel availableRoutesLabel = new NativeLabel("Verfügbare Routen:");
     availableRoutesLabel.setWidth("300px");
-    NativeLabel distanceAndElevationLabel = new NativeLabel("0 km, 0 Hm");
-    distanceAndElevationLabel.setWidth("600px");
-    GpxView gpxView = new GpxView(gpxReader, distanceAndElevationLabel);
-    gpxView.setId("map");
     gpxView.setSizeFull();
     ComboBox<File> availableGpxFilesComboBox = new ComboBox<>();
     availableGpxFilesComboBox.setItems(availableGpxFiles);
@@ -38,6 +36,7 @@ public class BaseGpxView extends VerticalLayout {
       elevationProfileButton.setEnabled(true);
     });
     availableGpxFilesComboBox.setWidthFull();
+    distanceAndElevationLabel.setWidth("600px");
     gpxSelector.add(availableRoutesLabel, availableGpxFilesComboBox, distanceAndElevationLabel, elevationProfileButton);
     gpxSelector.setWidthFull();
     add(gpxSelector, gpxView);

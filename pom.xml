@@ -44,6 +44,8 @@
     <jakarta.activation-api.version>2.1.2</jakarta.activation-api.version>
     <jakarta.servlet-api.version>5.0.0</jakarta.servlet-api.version>
     <jfreechart.version>1.0.19</jfreechart.version>
+    <snakeyaml.version>2.2</snakeyaml.version>
+    <google-maps.version>1.10.1</google-maps.version>
   </properties>
 
   <dependencyManagement>
@@ -103,6 +105,11 @@
       <artifactId>jetty-server</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.yaml</groupId>
+      <artifactId>snakeyaml</artifactId>
+      <version>${snakeyaml.version}</version>
+    </dependency>
+    <dependency>
       <groupId>com.vaadin</groupId>
       <artifactId>vaadin-spring-boot-starter</artifactId>
       <exclusions>
@@ -123,6 +130,13 @@
     <dependency>
       <groupId>com.vaadin</groupId>
       <artifactId>vaadin-notification-flow</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.flowingcode.vaadin.addons</groupId>
+      <artifactId>google-maps</artifactId>
+      <version>${google-maps.version}</version>
+      <scope>system</scope>
+      <systemPath>${basedir}/lib/googlemapsaddon-1.10.1/google-maps-1.10.1.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>com.github.eirslett</groupId>

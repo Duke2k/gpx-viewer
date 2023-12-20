@@ -26,3 +26,7 @@ vaadin:
   compatibilityMode: false
   pnpm:
     enable: true
+gpx-viewer:
+  google-maps:
+    api-key: ''
+    client-id: ''

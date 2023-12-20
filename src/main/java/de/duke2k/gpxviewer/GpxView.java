@@ -1,18 +1,21 @@
 package de.duke2k.gpxviewer;
 
-import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.dependency.CssImport;
-import com.vaadin.flow.component.dependency.JsModule;
-import com.vaadin.flow.component.dependency.NpmPackage;
+import com.flowingcode.vaadin.addons.googlemaps.GoogleMap;
+import com.flowingcode.vaadin.addons.googlemaps.GoogleMapPoint;
+import com.flowingcode.vaadin.addons.googlemaps.GoogleMapPolygon;
+import com.flowingcode.vaadin.addons.googlemaps.LatLon;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.NativeLabel;
-import com.vaadin.flow.function.SerializableConsumer;
+import de.duke2k.gpxviewer.config.GpxViewConfiguration;
 import de.duke2k.gpxviewer.xjc.GpxType;
 import de.duke2k.gpxviewer.xjc.WptType;
 import jakarta.xml.bind.JAXBException;
 import lombok.extern.java.Log;
 import org.apache.commons.lang3.tuple.Pair;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import java.io.File;
@@ -20,6 +23,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static de.duke2k.gpxviewer.VaadinConstants.OVERLAY_ASPECT_RATIO;
 import static de.duke2k.gpxviewer.VaadinConstants.OVERLAY_WIDTH;
@@ -29,19 +33,22 @@ import static de.duke2k.gpxviewer.util.GpxUtils.findIdealZoomFactor;
 import static de.duke2k.gpxviewer.util.GpxUtils.getDistance;
 
 @Log
-@NpmPackage(value = "ol", version = "8.1.0")
-@CssImport("./ol/ol.css")
-@JsModule("./src/ol.js")
+@Component
 public class GpxView extends Div {
 
   private final GpxReader gpxReader;
   private final NativeLabel distanceAndElevationLabel;
   private List<WptType> waypoints;
+  private GoogleMap googleMap;
 
-  public GpxView(GpxReader gpxReader, NativeLabel distanceAndElevationLabel) {
+  @Autowired
+  public GpxView(GpxReader gpxReader,
+                 @Qualifier("distanceAndElevationLabel") NativeLabel distanceAndElevationLabel,
+                 GpxViewConfiguration configuration) {
     this.gpxReader = gpxReader;
     this.distanceAndElevationLabel = distanceAndElevationLabel;
-    initConnector();
+    initMap(configuration.getApiKey(), configuration.getClientId());
+    setId("map");
   }
 
   public void loadGpxRoute(@Nonnull File gpxFile) {
@@ -65,6 +72,7 @@ public class GpxView extends Div {
       distanceAndElevationLabel.setText(BigDecimal.valueOf(distance / 1000.0) + " km, " +
           BigDecimal.valueOf(elevation) + " Hm");
       centerAndScaleOnMap(findCentre(waypoints), findIdealZoomFactor(waypoints));
+      drawRoute(waypoints);
     } catch (IOException | JAXBException e) {
       log.severe(e.getMessage());
     }
@@ -76,21 +84,29 @@ public class GpxView extends Div {
     }
   }
 
-  private void initConnector() {
-    runBeforeClientResponse(ui -> ui.getPage().executeJs(
-        "window.Vaadin.Flow.openLayersConnector.initLazy($0)",
-        getElement()));
+  private void initMap(String apiKey, String clientId) {
+    googleMap = new GoogleMap(apiKey, clientId, "de");
+    googleMap.setMapType(GoogleMap.MapType.ROADMAP);
+    googleMap.setId("google-map");
+    googleMap.setSizeFull();
+    add(googleMap);
   }
 
-  private void centerAndScaleOnMap(Pair<BigDecimal, BigDecimal> coordinates, BigDecimal zoom) {
-    UI.getCurrent().getPage().executeJs(
-        "window.Vaadin.Flow.openLayersConnector.centerAndScale($0, $1, $2, $3)",
-        getElement(), coordinates.getLeft().doubleValue(), coordinates.getRight().doubleValue(), zoom.doubleValue());
+  private void centerAndScaleOnMap(@Nonnull Pair<BigDecimal, BigDecimal> coordinates, @Nonnull BigDecimal zoom) {
+    LatLon center = new LatLon(coordinates.getLeft().doubleValue(), coordinates.getRight().doubleValue());
+    googleMap.setCenter(center);
+    googleMap.setZoom(zoom.intValue());
   }
 
-  private void runBeforeClientResponse(SerializableConsumer<UI> command) {
-    getElement().getNode().runWhenAttached(ui -> ui
-        .beforeClientResponse(this, context -> command.accept(ui)));
+  private void drawRoute(@Nonnull List<WptType> waypoints) {
+    GoogleMapPolygon routeOnMap = new GoogleMapPolygon(waypoints.stream()
+        .map(wpt -> new LatLon(wpt.getLat().doubleValue(), wpt.getLon().doubleValue()))
+        .map(GoogleMapPoint::new)
+        .collect(Collectors.toList()));
+    routeOnMap.setStrokeColor("#eb4034");
+    routeOnMap.setClassName("RouteOnMap");
+    googleMap.removeClassName("RouteOnMap");
+    googleMap.addPolygon(routeOnMap);
   }
 
   @SuppressWarnings("UnusedReturnValue")

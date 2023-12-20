@@ -1,5 +1,6 @@
-package de.duke2k.gpxviewer;
+package de.duke2k.gpxviewer.config;
 
+import com.vaadin.flow.component.html.NativeLabel;
 import de.duke2k.gpxviewer.xjc.GpxType;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -40,5 +41,10 @@ public class BeanConfiguration {
       }
     }
     return Collections.emptyList();
+  }
+
+  @Bean("distanceAndElevationLabel")
+  public NativeLabel distanceAndElevationLabel() {
+    return new NativeLabel("0.0 km, 0.0 Hm");
   }
 }

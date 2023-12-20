@@ -5,10 +5,6 @@
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <trk>
     <name>Cyclotour du Léman 2023 / Lausanne - Lausanne (Place de la Navigation) 176 km</name>
-    <desc>
-      Bist du mutig genug, dich der Herausforderung der Cyclotour du Léman zu stellen? Wenn ja, dann los!
-      Lass deine Sorgen hinter dir, die magische Szenerie rund um den Genfersee wird zur Seelen-Massage!
-    </desc>
     <trkseg>
       <trkpt lat="46.50677" lon="6.62629">
         <ele>380.0</ele>
