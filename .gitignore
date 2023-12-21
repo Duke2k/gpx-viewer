@@ -13,3 +13,6 @@ package-lock.json
 tsconfig.json
 types.d.ts
 .fake
+frontend/generated/
+pnpm-lock.yaml
+webpack.generated.js

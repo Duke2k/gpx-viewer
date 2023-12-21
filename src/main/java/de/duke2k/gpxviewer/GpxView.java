@@ -6,7 +6,7 @@ import com.flowingcode.vaadin.addons.googlemaps.GoogleMapPolygon;
 import com.flowingcode.vaadin.addons.googlemaps.LatLon;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.NativeLabel;
+import com.vaadin.flow.component.html.Label;
 import de.duke2k.gpxviewer.config.GpxViewConfiguration;
 import de.duke2k.gpxviewer.xjc.GpxType;
 import de.duke2k.gpxviewer.xjc.WptType;
@@ -37,13 +37,13 @@ import static de.duke2k.gpxviewer.util.GpxUtils.getDistance;
 public class GpxView extends Div {
 
   private final GpxReader gpxReader;
-  private final NativeLabel distanceAndElevationLabel;
+  private final Label distanceAndElevationLabel;
   private List<WptType> waypoints;
   private GoogleMap googleMap;
 
   @Autowired
   public GpxView(GpxReader gpxReader,
-                 @Qualifier("distanceAndElevationLabel") NativeLabel distanceAndElevationLabel,
+                 @Qualifier("distanceAndElevationLabel") Label distanceAndElevationLabel,
                  GpxViewConfiguration configuration) {
     this.gpxReader = gpxReader;
     this.distanceAndElevationLabel = distanceAndElevationLabel;
@@ -104,8 +104,7 @@ public class GpxView extends Div {
         .map(GoogleMapPoint::new)
         .collect(Collectors.toList()));
     routeOnMap.setStrokeColor("#eb4034");
-    routeOnMap.setClassName("RouteOnMap");
-    googleMap.removeClassName("RouteOnMap");
+    routeOnMap.setId(googleMap.getId() + "-route");
     googleMap.addPolygon(routeOnMap);
   }
 
