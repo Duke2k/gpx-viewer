@@ -6,7 +6,6 @@ target/
 .factorypath
 .project
 .settings
-/src/main/java/de/duke2k/gpxviewer/xjc/
 node_modules/
 package.json
 package-lock.json
